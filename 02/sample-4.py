@@ -46,27 +46,6 @@ loss_fn = nn.MSELoss()
 """
 一回だけ予測→損失計算→バックプロパゲーションを行う場合
 """
-# 予測
-y_pred = net(X)
-print("予測結果")
-print(y_pred)
-
-# 損失計算
-loss = loss_fn(y_pred, Y)
-print(loss)
-
-# バックプロパゲーション
-loss.backward()
-
-# step関数がないと、バックプロパゲーションの結果が反映されない
-optimizer.step()
-
-# バックプロパゲーション後、もう一度予測
-optimizer.zero_grad()
-y_pred = net(X)
-print("予測結果")
-print(y_pred)
-
 
 # 100回トレーニングする
 for epoch in range(1000):
@@ -79,7 +58,9 @@ for epoch in range(1000):
     print("loss:{:.3f}".format(loss))
     optimizer.step()
 
-# トレーニングしたデータを保存する
-torch.save(net, "sample-1.pth")
-
-
+# 入力層を取得
+input_layer = net[0]
+# 入力層のweightを表示
+print(input_layer.weight)
+# 入力層のバイアスを表示
+print(input_layer.bias)
