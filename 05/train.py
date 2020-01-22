@@ -40,7 +40,7 @@ class SrcnnDataSet(data.Dataset):
         
         
         img = cv2.imread(self.img_file_list[index])
-        img = cv2.resize(img, (int(o_w/4), int(o_h/4)))
+        img = cv2.resize(img, (int(o_w/2), int(o_h/2)))
         img = cv2.resize(img, (o_w, o_h))
         img = img.astype(np.float32)
         img = img.T/255.
@@ -56,7 +56,7 @@ if __name__ == '__main__':
     parser.add_argument('--weights_dir', help="pthファイルの出力先ディレクトリ", default='weights')
     parser.add_argument('--batch_size', help="ミニバッチのサイズ", default=4, type=int)
     parser.add_argument('--device', help="GPU", default="cuda:1")
-    parser.add_argument('--epochs', help="GPU", default=100)
+    parser.add_argument('--epochs', help="GPU", default=100, type=int)
     
     args = parser.parse_args()
 
