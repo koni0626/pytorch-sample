@@ -33,14 +33,14 @@ class SrcnnDataSet(data.Dataset):
 
     def __getitem__(self, index):
         img = cv2.imread(self.img_file_list[index])
-        img = cv2.resize(img, (960, 1280)) #あまりに大きい画像が来るとエラーになるため
+        #img = cv2.resize(img, (960, 1280)) #あまりに大きい画像が来るとエラーになるため
         o_h, o_w = img.shape[0:2]
         img = img.astype(np.float32)
         img = np.array(img).T/255.
         
         
         anno_img = cv2.imread(self.img_file_list[index])
-        anno_img = cv2.resize(anno_img, (240, 320))
+        anno_img = cv2.resize(anno_img, (int(o_w/4), int(o_h/4)))
         anno_img = cv2.resize(anno_img, (o_w, o_h))
         anno_img = anno_img.astype(np.float32)
         anno_img = anno_img.T/255.
@@ -54,9 +54,9 @@ if __name__ == '__main__':
     parser.add_argument('--train_dir', help="学習データがあるディレクトリ", default='train')
     parser.add_argument('--val_dir', help="検証用データがあるディレクトリ", default='val')
     parser.add_argument('--weights_dir', help="pthファイルの出力先ディレクトリ", default='weights')
-    parser.add_argument('--batch_size', help="ミニバッチのサイズ", default=4)
+    parser.add_argument('--batch_size', help="ミニバッチのサイズ", default=4, type=int)
     parser.add_argument('--device', help="GPU", default="cuda:1")
-    parser.add_argument('--epochs', help="GPU", default=30)
+    parser.add_argument('--epochs', help="GPU", default=100)
     
     args = parser.parse_args()
 
@@ -68,7 +68,14 @@ if __name__ == '__main__':
     epochs = args.epochs
 
     # 訓練用画像のファイルリスト取得
-    train_img_list = glob.glob(os.path.join(train_path, "*.jpg"))
+    train_img_list = []
+    tmp_img_list = glob.glob(os.path.join(train_path, "*.jpg"))
+    for filename in tmp_img_list:
+        s = os.path.getsize(filename)
+        if s > 30*1000:
+            train_img_list.append(filename)
+            
+        
 
     # 検証用画像のファイルリスト取得
     val_img_list = glob.glob(os.path.join(val_path, "*.jpg"))
