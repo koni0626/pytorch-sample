@@ -32,19 +32,19 @@ class SrcnnDataSet(data.Dataset):
         return len(self.img_file_list)
 
     def __getitem__(self, index):
-        img = cv2.imread(self.img_file_list[index])
-        #img = cv2.resize(img, (960, 1280)) #あまりに大きい画像が来るとエラーになるため
-        o_h, o_w = img.shape[0:2]
-        img = img.astype(np.float32)
-        img = np.array(img).T/255.
-        
-        
         anno_img = cv2.imread(self.img_file_list[index])
-        anno_img = cv2.resize(anno_img, (int(o_w/4), int(o_h/4)))
-        anno_img = cv2.resize(anno_img, (o_w, o_h))
+        #img = cv2.resize(img, (960, 1280)) #あまりに大きい画像が来るとエラーになるため
+        o_h, o_w = anno_img.shape[0:2]
         anno_img = anno_img.astype(np.float32)
         anno_img = anno_img.T/255.
         
+        
+        img = cv2.imread(self.img_file_list[index])
+        img = cv2.resize(img, (int(o_w/4), int(o_h/4)))
+        img = cv2.resize(img, (o_w, o_h))
+        img = img.astype(np.float32)
+        img = img.T/255.
+
         return img, anno_img
         
 

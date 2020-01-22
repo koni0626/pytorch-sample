@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
     for img_file_path in img_list:
         img = cv2.imread(img_file_path)
-        img = cv2.resize(img, (960, 1280))
+       # img = cv2.resize(img, (960, 1280))
         img = img.T / 255.
         img = torch.tensor(img, device=device, dtype=torch.float32)
         img = img.unsqueeze(0)
@@ -45,10 +45,11 @@ if __name__ == '__main__':
         outputs = net(img)
         outputs = outputs.to("cpu")
         y = outputs[0]
-        y = y[0].detach().numpy()
-        y = y.T * 255
+        y = y.detach().numpy()
+        print(y.shape)
+        y = y.T * 255.
         y = y.astype(np.uint8)
-
+        
         img_filename = img_file_path.split(os.sep)[-1]
         output_file = os.path.join(output_dir, img_filename)
         cv2.imwrite(output_file, y)
