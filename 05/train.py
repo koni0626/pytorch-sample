@@ -40,7 +40,7 @@ class SrcnnDataSet(data.Dataset):
         
         
         img = cv2.imread(self.img_file_list[index])
-        img = cv2.resize(img, (int(o_w/2), int(o_h/2)))
+        img = cv2.resize(img, (int(o_w/4), int(o_h/4)))
         img = cv2.resize(img, (o_w, o_h))
         img = img.astype(np.float32)
         img = img.T/255.
