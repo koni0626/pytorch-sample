@@ -42,10 +42,17 @@ sample-1.pyを実行し、sample-1.pthファイルを出力させた後に実行
 python3 sample-3.py
 ```
 
-#3 sample-4.py
+## sample-4.py
 ウェイトとバイアスを出力するサンプルプログラム。
 実行方法
 
 ```
 python3 sample-4.py
 ```
+
+
+## sample-5.py
+モデルの保存方法(state_dict版)
+
+## sample-5-1.py
+sample5で学習したファイルを読み込んで実行する場合
