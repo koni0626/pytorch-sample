@@ -21,3 +21,8 @@ if __name__ == '__main__':
     net.add_module("net2", net2)
     net.add_module('fc1', nn.Linear(1, 10))
     print(net)
+    print("=========")
+    net.fc1 = torch.nn.Identity()
+    print(net)
+
+
