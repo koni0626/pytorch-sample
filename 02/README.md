@@ -56,3 +56,6 @@ python3 sample-4.py
 
 ## sample-5-1.py
 sample5で学習したファイルを読み込んで実行する場合
+
+## sample-6.py
+weightとbiasがどういう変化をするか調べたサンプル
