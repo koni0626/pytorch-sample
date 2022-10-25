@@ -17,7 +17,7 @@ net = nn.Sequential(
         nn.Softmax()
     )
 
-# XOR野データを作成
+# XORのデータを作成
 X = [[0., 0.],
      [0., 1.],
      [1., 0.],
